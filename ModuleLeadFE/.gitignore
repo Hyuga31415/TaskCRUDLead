@@ -1,0 +1,41 @@
+# Tệp tin logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Thư mục thư viện (Nặng và có thể cài lại bằng npm install)
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Thư mục build và các tệp tin tạm của Vite
+.vite/
+
+# Các tệp tin môi trường (Chứa thông tin bảo mật như API Key, Password)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Tệp tin của trình soạn thảo code (VS Code, WebStorm, v.v.)
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Các tệp tin hệ thống
+.DS_Store
+Thumbs.db
+
+# Thư mục kiểm thử (nếu có)
+coverage/
