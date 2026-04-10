@@ -32,7 +32,7 @@ const LeadList = () => {
         keyword: '', statusId: '', provinceId: '', organizationId: '', sourceId: ''
     });
 
-    const [metadata, setMetadata] = useState({ sources: [], organizations: [] });
+    const [metadata, setMetadata] = useState({ sources: [], organizations: [], provinces: [] });
 
     const formatDateTime = (dateString) => {
         if (!dateString) return '---';
@@ -50,7 +50,8 @@ const LeadList = () => {
             try {
                 const [srcRes, orgRes] = await Promise.all([
                     fetch('http://localhost:8080/api/v1/metadata/sources').catch(() => null),
-                    fetch('http://localhost:8080/api/v1/metadata/organizations').catch(() => null) 
+                    fetch('http://localhost:8080/api/v1/metadata/organizations').catch(() => null),
+                    fetch('http://localhost:8080/api/v1/metadata/provinces').catch(() => null) 
                 ]);
                 
                 setMetadata({
@@ -248,9 +249,7 @@ const LeadList = () => {
                             <label>Tỉnh/Thành phố</label>
                             <select name="provinceId" value={filters.provinceId} onChange={handleFilterChange}>
                                 <option value="">Tất cả</option>
-                                <option value="1">Hà Nội</option>
-                                <option value="2">Hồ Chí Minh</option>
-                                <option value="3">Đà Nẵng</option>
+                                {metadata.privic.map(org => <option key={org.id} value={org.id}>{org.name}</option>)}
                             </select>
                         </div>
 
@@ -258,7 +257,7 @@ const LeadList = () => {
                             <label>Nhóm bán hàng</label>
                             <select name="organizationId" value={filters.organizationId} onChange={handleFilterChange}>
                                 <option value="">Tất cả</option>
-                                {metadata.organizations.map(org => <option key={org.id} value={org.id}>{org.name}</option>)}
+                                {metadata.provinces.map(org => <option key={org.id} value={org.id}>{org.name}</option>)}
                             </select>
                         </div>
 
