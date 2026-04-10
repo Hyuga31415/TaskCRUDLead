@@ -21,8 +21,7 @@ Frontend: **ReactJS + (Vite)**.
 
 ## 📊 Sơ đồ Cơ sở dữ liệu (ERD Schema)
 
-<img width="1097" height="734" alt="image" src="https://github.com/user-attachments/assets/a147958e-4931-43d5-bb23-2f496a47c530" />
-
+<img width="1165" height="663" alt="image" src="https://github.com/user-attachments/assets/a8def5a8-5c50-4e5b-b740-c4255828fff9" />
 
 ---
 
@@ -31,7 +30,8 @@ Các chức năng trong phân hệ Lead tương tác mật thiết với các nh
 
 ### 1. Nhóm bảng nghiệp vụ chính (Core Tables)
 - `leads`: Bảng trung tâm lưu trữ toàn bộ thông tin của Khách hàng tiềm năng (Tên, SĐT, Email, Doanh thu dự kiến, Thông tin nguồn, Trạng thái...).
-  <img width="1152" height="562" alt="image" src="https://github.com/user-attachments/assets/1fe3cb44-a06b-459d-b0dc-0b874f87c803" />
+  
+ <img width="986" height="521" alt="image" src="https://github.com/user-attachments/assets/d72a85f9-808b-47a7-ab40-5db15e477784" />
 
 - `lead_product_interests`: Bảng trung gian (Many-to-Many) lưu trữ danh sách các Dịch vụ / Sản phẩm mà Lead đang quan tâm.
 
