@@ -21,32 +21,32 @@ public class Lead {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contact_name", nullable = false, length = 150)
+    @Column(name = "contact_name", nullable = false, length = 50)
     private String contactName;
 
-    @Column(name = "company_name", length = 200)
+    @Column(name = "company_name", length = 100)
     private String companyName;
 
-    @Column(length = 20)
+    @Column(length = 10)
     private String phone;
 
-    @Column(length = 150)
+    @Column(length = 100)
     private String email;
 
     @Column(name = "tax_code", length = 13)
     private String taxCode;
 
-    @Column(name = "citizen_id", length = 20)
+    @Column(name = "citizen_id", length = 12)
     private String citizenId;
 
     // Sửa lại thành status_id để khớp với DB (sys_lead_statuses)
     @Column(name = "status_id", nullable = false)
     private Long statusId = 1L; // 1L mặc định là 'NEW' theo DB
 
-    @Column(length = 255)
+    @Column(length = 150)
     private String address;
 
-    @Column(length = 255)
+    @Column(length = 100)
     private String website;
 
     @Column(name = "province_id")

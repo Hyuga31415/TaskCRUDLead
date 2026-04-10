@@ -17,7 +17,7 @@ const LeadForm = ({ isEditMode, onSuccess }) => {
     });
     
     const [metadata, setMetadata] = useState({
-        products: [], sources: [], campaigns: [], users: []
+        products: [], sources: [], campaigns: [], users: [], provinces: []
     });
 
     const [errors, setErrors] = useState({});
@@ -32,18 +32,20 @@ const LeadForm = ({ isEditMode, onSuccess }) => {
     useEffect(() => {
         const fetchMetadata = async () => {
             try {
-                const [prodRes, srcRes, campRes, userRes] = await Promise.all([
+                const [prodRes, srcRes, campRes, userRes, proRes] = await Promise.all([
                     fetch('http://localhost:8080/api/v1/metadata/products').catch(()=>null),
                     fetch('http://localhost:8080/api/v1/metadata/sources').catch(()=>null),
                     fetch('http://localhost:8080/api/v1/metadata/campaigns').catch(()=>null),
-                    fetch('http://localhost:8080/api/v1/metadata/users').catch(()=>null)
+                    fetch('http://localhost:8080/api/v1/metadata/users').catch(()=>null),
+                    fetch('http://localhost:8080/api/v1/metadata/provinces').catch(()=>null)
                 ]);
                 
                 setMetadata({
                     products: prodRes && prodRes.ok ? await prodRes.json() : [],
                     sources: srcRes && srcRes.ok ? await srcRes.json() : [],
                     campaigns: campRes && campRes.ok ? await campRes.json() : [],
-                    users: userRes && userRes.ok ? await userRes.json() : []
+                    users: userRes && userRes.ok ? await userRes.json() : [],
+                    provinces: proRes && proRes.ok ? await proRes.json() : []
                 });
             } catch (error) {
                 console.error("Lỗi khi tải metadata:", error);
@@ -221,7 +223,6 @@ const LeadForm = ({ isEditMode, onSuccess }) => {
 
                 <form onSubmit={handlePreSubmit} onKeyDown={handleKeyDown}>
                     <div className="form-grid">
-                        {/* CÁC FIELD INPUT HIỆN TẠI GIỮ NGUYÊN */}
                         <div className="form-group">
                             <label className="form-label">Tên liên hệ <span className="required">*</span></label>
                             <div className="input-wrapper">
@@ -356,9 +357,7 @@ const LeadForm = ({ isEditMode, onSuccess }) => {
                                 <select name="provinceId" value={formData.provinceId} onChange={handleChange} className="form-input pl-10"
                                         disabled={isConverted}>
                                     <option value="">-- Chọn Tỉnh/TP --</option>
-                                    <option value="1">Hà Nội</option>
-                                    <option value="2">Hồ Chí Minh</option>
-                                    <option value="3">Đà Nẵng</option>
+                                    {metadata.provinces.map(pro => <option key={pro.id} value={pro.id}>{pro.name}</option>)}
                                 </select>
                             </div>
 

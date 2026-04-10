@@ -32,7 +32,7 @@ const LeadList = () => {
         keyword: '', statusId: '', provinceId: '', organizationId: '', sourceId: ''
     });
 
-    const [metadata, setMetadata] = useState({ sources: [], organizations: [], provinces: [] });
+    const [metadata, setMetadata] = useState({ sources: [], organizations: [], provinces: [], status: [] });
 
     const formatDateTime = (dateString) => {
         if (!dateString) return '---';
@@ -48,15 +48,18 @@ const LeadList = () => {
     useEffect(() => {
         const fetchMetadata = async () => {
             try {
-                const [srcRes, orgRes] = await Promise.all([
+                const [srcRes, orgRes, proRes, staRes] = await Promise.all([
                     fetch('http://localhost:8080/api/v1/metadata/sources').catch(() => null),
                     fetch('http://localhost:8080/api/v1/metadata/organizations').catch(() => null),
-                    fetch('http://localhost:8080/api/v1/metadata/provinces').catch(() => null) 
+                    fetch('http://localhost:8080/api/v1/metadata/provinces').catch(() => null),
+                    fetch('http://localhost:8080/api/v1/metadata/status').catch(() => null) 
                 ]);
                 
                 setMetadata({
                     sources: srcRes && srcRes.ok ? await srcRes.json() : [],
-                    organizations: orgRes && orgRes.ok ? await orgRes.json() : [] 
+                    organizations: orgRes && orgRes.ok ? await orgRes.json() : [],
+                    provinces: proRes && proRes.ok ? await proRes.json() : [],
+                    status: staRes && staRes.ok ? await staRes.json() : [] 
                 });
             } catch (error) {
                 console.error("Lỗi khi tải metadata bộ lọc:", error);
@@ -249,7 +252,7 @@ const LeadList = () => {
                             <label>Tỉnh/Thành phố</label>
                             <select name="provinceId" value={filters.provinceId} onChange={handleFilterChange}>
                                 <option value="">Tất cả</option>
-                                {metadata.privic.map(org => <option key={org.id} value={org.id}>{org.name}</option>)}
+                                {metadata.provinces.map(pro => <option key={pro.id} value={pro.id}>{pro.name}</option>)}
                             </select>
                         </div>
 
@@ -257,7 +260,7 @@ const LeadList = () => {
                             <label>Nhóm bán hàng</label>
                             <select name="organizationId" value={filters.organizationId} onChange={handleFilterChange}>
                                 <option value="">Tất cả</option>
-                                {metadata.provinces.map(org => <option key={org.id} value={org.id}>{org.name}</option>)}
+                                {metadata.organizations.map(org => <option key={org.id} value={org.id}>{org.name}</option>)}
                             </select>
                         </div>
 
@@ -265,11 +268,7 @@ const LeadList = () => {
                             <label>Trạng thái</label>
                             <select name="statusId" value={filters.statusId} onChange={handleFilterChange}>
                                 <option value="">Tất cả</option>
-                                <option value="1">Mới</option>
-                                <option value="2">Đang liên hệ</option>
-                                <option value="3">Đã chuyển đổi</option>
-                                <option value="4">Phát sinh giao dịch</option>
-                                <option value="5">Ngừng chăm sóc</option>
+                                {metadata.status.map(sta => <option key={sta.id} value={sta.id}>{sta.name}</option>)}
                             </select>
                         </div>
 

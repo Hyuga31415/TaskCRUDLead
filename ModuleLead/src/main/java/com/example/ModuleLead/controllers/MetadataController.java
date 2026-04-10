@@ -53,4 +53,16 @@ public class MetadataController {
         return jdbcTemplate.query("SELECT id, name FROM organizations",
                 (rs, rowNum) -> new DropdownDTO(rs.getLong("id"), rs.getString("name")));
     }
+
+    @GetMapping("/provinces")
+    public List<DropdownDTO> getProvinces() {
+        return jdbcTemplate.query("SELECT id, name FROM provinces",
+                (rs, rowNum) -> new DropdownDTO(rs.getLong("id"), rs.getString("name")));
+    }
+
+    @GetMapping("/status")
+    public List<DropdownDTO> getStatus() {
+        return jdbcTemplate.query("SELECT id, name FROM sys_lead_statuses",
+                (rs, rowNum) -> new DropdownDTO(rs.getLong("id"), rs.getString("name")));
+    }
 }
